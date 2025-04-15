@@ -139,9 +139,15 @@ numberRange
  : Number ':' Number '=' value
  ;
 
+
 value
- : String | Number | Column | Bool
- ;
+  : STRING
+  | NUMBER
+  | BOOLEAN
+  | BYTE_SIZE
+  | TIME_DURATION
+  ;
+
 
 ecommand
  : '!' Identifier
@@ -311,3 +317,30 @@ fragment Int
 fragment Digit
  : [0-9]
  ;
+
+
+// === TIME DURATION ===
+TIME_DURATION
+  : NUMBER TIME_UNIT
+  ;
+
+fragment BYTE_UNIT
+  : [kK][bB]      // KB
+  | [mM][bB]      // MB
+  | [gG][bB]      // GB
+  ;
+
+fragment TIME_UNIT
+  : [mM][sS]      // milliseconds
+  | [sS]          // seconds
+  | [mM][iI][nN]  // minutes
+  ;
+
+fragment NUMBER
+  : DIGIT+ ('.' DIGIT+)?     // Integer or decimal like 1.5
+  ;
+
+fragment DIGIT
+  : [0-9]
+  ;
+
